@@ -1,0 +1,14 @@
+## /etc/tor/torrc
+## Configuration file for a typical Tor user
+
+ControlSocket /run/tor/control
+ControlSocketsGroupWritable 1
+CookieAuthentication 1
+CookieAuthFile /run/tor/control.authcookie
+CookieAuthFileGroupReadable 1
+
+RunAsDaemon 1   # start tor as daemon
+
+HiddenServiceDir /var/lib/tor/monero
+HiddenServicePort 18081 127.0.0.1:18081    # interface for wallet ("RPC")
+HiddenServicePort 18083 127.0.0.1:18083    # interface for P2P network
