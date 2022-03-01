@@ -3,9 +3,6 @@
 # centos base image
 FROM centos:7
 
-# set env for monerod download
-ENV MONERO_VERSION=0.17.3.0
-
 # copy repo file for tor repo
 COPY tor.repo /etc/yum.repos.d/tor.repo
 
