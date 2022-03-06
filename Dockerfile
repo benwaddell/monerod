@@ -1,4 +1,4 @@
-# docker run -p 18080-18081:18080-18081 -v /mnt/x/monero/:/srv/monero -d --restart always btw1217/monerod
+# docker run -p 18080-18081:18080-18081 -v /mnt/monero:/srv/monero -v /docker/monerod/monero:/var/lib/tor/monero -d --name monerod --restart always btw1217/monerod
 
 # centos base image
 FROM centos:7
@@ -7,9 +7,9 @@ FROM centos:7
 COPY tor.repo /etc/yum.repos.d/tor.repo
 
 # download and install tor and monerod
-RUN yum update -y \
-    && yum install bzip2 epel-release -y \
+RUN yum install bzip2 epel-release -y \
     && useradd --system monero \
+    && useradd --system toranon -u 102 \
     && mkdir -p /opt/monero \
     && mkdir -p /srv/monero \
     && chown -R monero:monero /srv/monero \
@@ -23,12 +23,8 @@ RUN yum update -y \
 
 # copy config files and startup script
 COPY --chown=toranon:toranon ./torrc /etc/tor/torrc
-COPY --chown=toranon:toranon ./monero /var/lib/tor/monero
 COPY monero.conf /etc/monero.conf
 COPY start.sh start.sh
-
-# set permissions for monero folder
-RUN chmod 700 /var/lib/tor/monero
 
 # run startup script
 ENTRYPOINT ./start.sh
