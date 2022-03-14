@@ -3,6 +3,9 @@
 # centos base image
 FROM centos:7
 
+# ports used by monerod
+EXPOSE 18080 18081
+
 # copy repo file for tor repo
 COPY tor.repo /etc/yum.repos.d/tor.repo
 
@@ -28,6 +31,3 @@ COPY start.sh start.sh
 
 # run startup script
 ENTRYPOINT ./start.sh
-
-# ports used by monerod
-EXPOSE 18080 18081
