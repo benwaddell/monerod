@@ -1,7 +1,7 @@
 #  docker run -p 18080-18081:18080-18081 -v /mnt/monero:/srv/monero -v monero-tor-keys:/var/lib/tor/monero -d --name monerod --pull always --restart always benwaddell/monerod
 
 # ubuntu base image
-FROM ubuntu
+FROM ubuntu:22.04
 
 # ports used by monerod
 EXPOSE 18080 18081
